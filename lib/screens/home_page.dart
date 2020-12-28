@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/jason/home_videos.dart';
+import 'package:youtube_clone/screens/video_details.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -100,7 +101,25 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => VideoDetailPage(
+                                  title: home_video[index]['title'],
+                                  viewCount: home_video[index]['view_count'],
+                                  username: home_video[index]['username'],
+                                  profile: home_video[index]['profile_img'],
+                                  thumbnail: home_video[index]['thumnail_img'],
+                                  dayAgo: home_video[index]['day_ago'],
+                                  subscribeCount: home_video[index]
+                                      ['subscriber_count'],
+                                  likeCount: home_video[index]['like_count'],
+                                  unlikeCount: home_video[index]
+                                      ['unlike_count'],
+                                  videoUrl: home_video[index]['video_url'],
+                                )));
+                  },
                   child: Container(
                     height: 200,
                     decoration: BoxDecoration(
