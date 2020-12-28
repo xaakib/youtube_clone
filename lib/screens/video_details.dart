@@ -357,7 +357,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: SingleChildScrollView(
                       child: Column(
-                        children: List.generate(home_video.length, (index) {
+                        children:
+                            List.generate(home_video_detail.length, (index) {
                           return GestureDetector(
                             onTap: () {
                               // _startPlay(home_video[index]);
@@ -375,7 +376,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                         borderRadius: BorderRadius.circular(8),
                                         image: DecorationImage(
                                             image: NetworkImage(
-                                                home_video[index]
+                                                home_video_detail[index]
                                                         ['thumnail_img']
                                                     .toString()),
                                             fit: BoxFit.cover)),
@@ -394,7 +395,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                               padding:
                                                   const EdgeInsets.all(3.0),
                                               child: Text(
-                                                home_video[index]
+                                                home_video_detail[index]
                                                         ['video_duration']
                                                     .toString(),
                                                 style: TextStyle(
@@ -430,7 +431,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                home_video[index]['title']
+                                                home_video_detail[index]
+                                                        ['title']
                                                     .toString(),
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -441,7 +443,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                home_video[index]['username']
+                                                home_video_detail[index]
+                                                        ['username']
                                                     .toString(),
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -453,7 +456,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                               Row(
                                                 children: <Widget>[
                                                   Text(
-                                                    home_video[index]
+                                                    home_video_detail[index]
                                                             ['view_count']
                                                         .toString(),
                                                     style: TextStyle(
