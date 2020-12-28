@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import 'package:youtube_clone/jason/home_videos.dart';
 import 'package:youtube_clone/theme/colors.dart';
 
@@ -34,82 +33,76 @@ class VideoDetailPage extends StatefulWidget {
 }
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
-  bool isSwitched = true;
+  // bool isSwitched = true;
 
-  VideoPlayerController _controller;
-  Future<void> _initializeVideoPlayerFuture;
-  int _playBackTime;
-  //The values that are passed when changing quality
-  Duration newCurrentPosition;
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset(widget.videoUrl)
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controller.play();
-        });
-      });
-  }
+  // VideoPlayerController _controller;
+  // Future<void> _initializeVideoPlayerFuture;
+  // int _playBackTime;
+  // //The values that are passed when changing quality
+  // Duration newCurrentPosition;
+  // @override
+  // void initState() {
+  //   _controller = VideoPlayerController.asset(widget.videoUrl);
+  //   // ..initialize().then((_) {
+  //   //   // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+  //   //   setState(() {
+  //   //     _controller.play();
+  //   //   });
+  //   // });
+  //   super.initState();
+  // }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xFF1b1c1e),
-      body: getBody(),
-    );
-  }
-
-  Widget getBody() {
-    var size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Column(
+      body: Column(
         children: <Widget>[
-          _controller.value.initialized
-              ? Stack(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ),
-                    AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: Center(
-                        child: IconButton(
-                          icon: Icon(
-                            _controller.value.isPlaying
-                                ? null
-                                : Icons.play_arrow,
-                            size: 60,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _controller.value.isPlaying
-                                  ? _controller.pause()
-                                  : _controller.play();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Container(
-                  width: size.width,
-                  height: 250,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(widget.thumbnail),
-                          fit: BoxFit.contain)),
-                ),
+          // _controller.value.initialized
+          //     ? Stack(
+          //     children: [
+          //       AspectRatio(
+          //         aspectRatio: _controller.value.aspectRatio,
+          //         child: VideoPlayer(_controller),
+          //       ),
+          //       AspectRatio(
+          //         aspectRatio: _controller.value.aspectRatio,
+          //         child: Center(
+          //           child: IconButton(
+          //             icon: Icon(
+          //               _controller.value.isPlaying
+          //                   ? null
+          //                   : Icons.play_arrow,
+          //               size: 60,
+          //               color: Colors.white,
+          //             ),
+          //             onPressed: () {
+          //               setState(() {
+          //                 _controller.value.isPlaying
+          //                     ? _controller.pause()
+          //                     : _controller.play();
+          //               });
+          //             },
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   )
+          // : Container(
+          //     width: size.width,
+          //     height: 250,
+          //     decoration: BoxDecoration(
+          //         image: DecorationImage(
+          //             image: AssetImage(widget.thumbnail),
+          //             fit: BoxFit.contain)),
+          //   ),
           Expanded(
               child: Container(
             child: SingleChildScrollView(
@@ -354,24 +347,6 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                               color: Colors.white.withOpacity(0.4),
                               fontWeight: FontWeight.w500),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "Autoplay",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white.withOpacity(0.4),
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Switch(
-                                value: isSwitched,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isSwitched = value;
-                                  });
-                                })
-                          ],
-                        )
                       ],
                     ),
                   ),
@@ -382,11 +357,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: SingleChildScrollView(
                       child: Column(
-                        children:
-                            List.generate(home_video_detail.length, (index) {
+                        children: List.generate(home_video.length, (index) {
                           return GestureDetector(
                             onTap: () {
-                              _startPlay(home_video_detail[index]);
+                              // _startPlay(home_video[index]);
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 20),
@@ -400,9 +374,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         image: DecorationImage(
-                                            image: AssetImage(
-                                                home_video_detail[index]
-                                                    ['thumnail_img']),
+                                            image: NetworkImage(
+                                                home_video[index]
+                                                        ['thumnail_img']
+                                                    .toString()),
                                             fit: BoxFit.cover)),
                                     child: Stack(
                                       children: <Widget>[
@@ -419,8 +394,9 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                               padding:
                                                   const EdgeInsets.all(3.0),
                                               child: Text(
-                                                home_video_detail[index]
-                                                    ['video_duration'],
+                                                home_video[index]
+                                                        ['video_duration']
+                                                    .toString(),
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.white
@@ -454,8 +430,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                home_video_detail[index]
-                                                    ['title'],
+                                                home_video[index]['title']
+                                                    .toString(),
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w500,
@@ -465,8 +441,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                home_video_detail[index]
-                                                    ['username'],
+                                                home_video[index]['username']
+                                                    .toString(),
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 12,
@@ -478,7 +454,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                                                 children: <Widget>[
                                                   Text(
                                                     home_video[index]
-                                                        ['view_count'],
+                                                            ['view_count']
+                                                        .toString(),
                                                     style: TextStyle(
                                                         color: Colors.white
                                                             .withOpacity(0.4),
@@ -517,44 +494,44 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     );
   }
 
-  Future<bool> _clearPrevious() async {
-    await _controller?.pause();
-    return true;
-  }
+  // Future<bool> _clearPrevious() async {
+  //   await _controller?.pause();
+  //   return true;
+  // }
 
-  Future<void> _startPlay(videoItem) async {
-    setState(() {
-      _initializeVideoPlayerFuture = null;
-    });
-    Future.delayed(const Duration(milliseconds: 200), () {
-      _clearPrevious().then((_) {
-        _initializePlay(videoItem['video_url']);
-      });
-    });
+  // Future<void> _startPlay(videoItem) async {
+  //   setState(() {
+  //     _initializeVideoPlayerFuture = null;
+  //   });
+  //   Future.delayed(const Duration(milliseconds: 200), () {
+  //     _clearPrevious().then((_) {
+  //       _initializePlay(videoItem['video_url']);
+  //     });
+  //   });
 
-    // new state of video object
-    setState(() {
-      widget.title = videoItem['title'];
-      widget.viewCount = videoItem['view_count'];
-      widget.dayAgo = videoItem['day_ago'];
-      widget.username = videoItem['username'];
-      widget.profile = videoItem['profile_img'];
-      widget.subscribeCount = videoItem['subscriber_count'];
-      widget.likeCount = videoItem['like_count'];
-      widget.unlikeCount = videoItem['unlike_count'];
-    });
-  }
+  //   // new state of video object
+  //   setState(() {
+  //     widget.title = videoItem['title'];
+  //     widget.viewCount = videoItem['view_count'];
+  //     widget.dayAgo = videoItem['day_ago'];
+  //     widget.username = videoItem['username'];
+  //     widget.profile = videoItem['profile_img'];
+  //     widget.subscribeCount = videoItem['subscriber_count'];
+  //     widget.likeCount = videoItem['like_count'];
+  //     widget.unlikeCount = videoItem['unlike_count'];
+  //   });
+  // }
 
-  Future<void> _initializePlay(String videoPath) async {
-    _controller = VideoPlayerController.asset(videoPath);
-    _controller.addListener(() {
-      setState(() {
-        _playBackTime = _controller.value.position.inSeconds;
-      });
-    });
-    _initializeVideoPlayerFuture = _controller.initialize().then((_) {
-      _controller.seekTo(newCurrentPosition);
-      _controller.play();
-    });
-  }
+  // Future<void> _initializePlay(String videoPath) async {
+  //   _controller = VideoPlayerController.asset(videoPath);
+  //   _controller.addListener(() {
+  //     setState(() {
+  //       _playBackTime = _controller.value.position.inSeconds;
+  //     });
+  //   });
+  //   _initializeVideoPlayerFuture = _controller.initialize().then((_) {
+  //     _controller.seekTo(newCurrentPosition);
+  //     _controller.play();
+  //   });
+  // }
 }
