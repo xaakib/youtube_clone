@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone/screens/home_page.dart';
-import 'package:youtube_clone/screens/testvideo.dart';
 
 void main() {
   runApp(MyApp());

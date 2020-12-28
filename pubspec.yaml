@@ -23,9 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.3
-  line_icons: ^0.2.0
-  # video_player: ^1.0.1
+  ionicons: ^0.0.3
+  material_design_icons_flutter: 4.0.5755
 
 dev_dependencies:
   flutter_test:
